@@ -1,15 +1,21 @@
 {
   "manifest_version": 2,
-
   "name": "Barcode Web",
   "description": "Print barcodes straight from Chrome!",
   "options_ui": {
-    // Required.
     "page": "options.html",
-    // Recommended.
     "chrome_style": true
   },
-  "version": "1.1",
+  "commands": {
+           "_execute_browser_action": {
+            "suggested_key": {
+              "windows": "Ctrl+B",
+              "mac": "Command+B"
+     
+            }
+          }
+        },
+  "version": "1.2",
   "icons": { "16": "icon16.png",
            "48": "icon48.png",
           "128": "icon128.png" },
@@ -18,6 +24,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "commands"
   ]
 }

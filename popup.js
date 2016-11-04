@@ -41,7 +41,7 @@ function sendToPrinter() {
         '&printer=' + printer;
 
     // Replace any instances of the URLEncoded space char with +
-    params = params.replace(/%20/g, '+');
+    params = params.replace(/%20/g, '');
 
     // Set correct header for form data 
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -91,6 +91,15 @@ window.addEventListener('load', function(evt) {
     var selectForm = document.getElementById('printer')
     var contentType = "application/x-www-form-urlencoded; charset=utf-8";
 
+
+
+    if (localStorage.autocomplete != undefined) {
+        if (localStorage.autocomplete == "no") {
+            document.getElementById('sku').attr('autocomplete', 'off');
+        }
+    }
+
+
     var request = new XMLHttpRequest();
     request.open("GET", mainUrl + 'printers.php', false);
     request.setRequestHeader('Content-type', contentType);
@@ -115,6 +124,8 @@ window.addEventListener('load', function(evt) {
 
 
     }
+
+
     for (var i = 0; i < selectForm.options.length; i++) {
         var d = selectForm.options[i];
 
@@ -127,6 +138,7 @@ window.addEventListener('load', function(evt) {
 
 
     }
+
 
 
 

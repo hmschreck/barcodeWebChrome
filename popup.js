@@ -2,7 +2,7 @@ statusDisplay = null;
 
 var defaultIP = "10.0.2.252/beta-printer/";
 
-
+var hash = false;
 
 var ip = defaultIP;
 var ip = defaultIP;
@@ -59,7 +59,7 @@ function sendToPrinter() {
                 statusDisplay.innerHTML = 'Printed!';
             }
             console.log(xhr.responseText);
-            //       window.setTimeout(window.close, 1000);
+            window.setTimeout(window.close, 1000);
 
         }
     };
@@ -85,8 +85,19 @@ function getCookie(cname) {
 }
 
 
+function checkSubmit(e) {
+    if (e && e.keyCode == 13) {
+        console.log('submit');
+        document.forms[0].submit();
+    }
+}
+
+
+
+
 // When the popup HTML has loaded
 window.addEventListener('load', function(evt) {
+    hash = false;
     // Cache a reference to the status display SPAN
     var selectForm = document.getElementById('printer')
     var contentType = "application/x-www-form-urlencoded; charset=utf-8";
@@ -98,6 +109,8 @@ window.addEventListener('load', function(evt) {
             document.getElementById('sku').attr('autocomplete', 'off');
         }
     }
+
+
 
 
     var request = new XMLHttpRequest();
@@ -126,6 +139,18 @@ window.addEventListener('load', function(evt) {
     }
 
 
+    if (window.location.hash) {
+        var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+        document.getElementById('sku').value = hash;
+        hash = true;
+    } else {
+
+        chrome.tabs.executeScript({
+            code: "window.getSelection().toString();"
+        }, function(selection) {
+            document.getElementById('sku').value = selection[0];
+        });
+    }
     for (var i = 0; i < selectForm.options.length; i++) {
         var d = selectForm.options[i];
 
@@ -145,4 +170,9 @@ window.addEventListener('load', function(evt) {
     statusDisplay = document.getElementById('status-display');
     // Handle the bookmark form submit event with our addBookmark function
     document.getElementById('sku-form').addEventListener('submit', sendToPrinter);
+});
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getSelection")
+        console.log(window.getSelection().toString())
 });

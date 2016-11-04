@@ -7,6 +7,7 @@
 <html>
 
 <head>
+	<script src="jquery-3.1.1.min.js"></script>
     <title>Getting Started Extension's Popup</title>
     <style>
     body {
@@ -33,9 +34,9 @@
 </head>
 
 <body>
-    <div id="status-display">
+    <div id="status-display" onKeyPress="return checkSubmit(event)">
         <form id="sku-form" action="http://10.0.0.252/printer/printr.php" method="post">
-            <p>SKU: <input id="sku" name="sku" placeholder="DE6530BWA3520AZ3" type="text" autocomplete="on"></p>
+            <p>SKU: <input id="sku" name="sku" placeholder="DE6530BWA3520AZ3" type="text" autofocus autocomplete="on"></p>
             <p>Quantity: <input id="quantity" name="quantity" type="text" value="1"></p>
             <p>Printer: <select id="printer" name="printer">
                 

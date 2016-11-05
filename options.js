@@ -3,7 +3,7 @@ var defaultIP = "10.0.2.252/printer/";
 function loadOptions() {
 
         
-    if (typeof localStorage.address == "string") {
+    if (typeof localStorage.address != "string") {
        document.getElementById("hostname").value = defaultIP;
     } else {
        document.getElementById("hostname").value = localStorage.address;

@@ -6,7 +6,7 @@ var hash = false;
 
 var ip = defaultIP;
 var ip = defaultIP;
-if (localStorage.address != undefined) {
+if (typeof localStorage.address == "string") {
     ip = localStorage.address;
 }
 
